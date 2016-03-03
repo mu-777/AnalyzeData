@@ -1,4 +1,22 @@
-function figNum = drawTrackingHorizon( figNum, circleTrajIns, eeTrajIns)
+function figNum = drawTrackingHorizon( figNum, data, avFlag, virtualFlag)
+    
+    if avFlag
+        if virtualFlag
+            eeTrajIns = data.av.virtualEETraj;
+            circleTrajIns = data.refVirtualCircleTraj;
+        else
+            eeTrajIns = data.av.realEETraj;
+            circleTrajIns = data.refRealCircleTraj;
+        end
+    else
+        if virtualFlag
+            eeTrajIns = data.js.virtualEETraj;
+            circleTrajIns = data.refVirtualCircleTraj;
+        else
+            eeTrajIns = data.js.realEETraj;
+            circleTrajIns = data.refRealCircleTraj;
+        end
+    end
     
     grid on;hold on;
     plot3(eeTrajIns.transformedPosition.tracking.cart(:,1), eeTrajIns.transformedPosition.tracking.cart(:,2), eeTrajIns.transformedPosition.tracking.cart(:,3),'Color', 'b', 'LineWidth', 1, 'Marker', 'o', 'MarkerSize', 2)    
